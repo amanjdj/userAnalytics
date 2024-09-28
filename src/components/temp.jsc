@@ -1,0 +1,220 @@
+/* eslint-disable react/prop-types */
+// import Chart from "chart.js/auto";
+// import { useAccounts } from "../contexts/accountsContext";
+import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+
+import { useFinal } from "../contexts/finalContext";
+// import { useCalls } from "../contexts/callsContext";
+// import { useState } from "react";
+function ChartBox() {
+  const { callTypes } = useFinal();
+  const { setSelectedTypeCalls } = useFinal();
+
+  const data = [
+    {
+      name: "face to face",
+      value: callTypes.face.length,
+      data: callTypes.face,
+    },
+    {
+      name: "Phone",
+      value: callTypes.phone.length,
+      data: callTypes.phone,
+    },
+    {
+      name: "Email",
+      value: callTypes.email.length,
+      data: callTypes.email,
+    },
+    {
+      name: "InPerson",
+      value: callTypes.inPerson.length,
+      data: callTypes.inPerson,
+    },
+    {
+      name: "Others",
+      value: callTypes.other.length,
+      data: callTypes.other,
+    },
+  ];
+
+  return (
+    <div>
+      <ResponsiveContainer
+        width="100%"
+        height="100%"
+        className="grow bg-blue-100 flex-1 border-b-gray-400 rounded-lg shadow-md"
+      >
+        <PieChart width={900} height={900}>
+          <Pie
+            data={data}
+            cx="50%"
+            cy="50%"
+            labelLine={false}
+            label={renderCustomizedLabel}
+            outerRadius={80}
+            fill="#8884d8"
+            dataKey="value"
+          >
+            {data.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={COLORS[index % COLORS.length]}
+                onClick={() => setSelectedTypeCalls(data[index])}
+              />
+            ))}
+          </Pie>
+        </PieChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+
+export default ChartBox;
+
+// import React, { PureComponent } from "react";
+
+const COLORS = ["#3196e7", "#8dc5f2", "#badcf7", "#187dce", "#5fadec"];
+
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({
+  cx,
+  cy,
+  midAngle,
+  innerRadius,
+  outerRadius,
+  percent,
+}) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+  return (
+    <text
+      x={x}
+      y={y}
+      fill="white"
+      textAnchor={x > cx ? "start" : "end"}
+      dominantBaseline="central"
+    >
+      {`${(percent * 100).toFixed(0)}%`}
+    </text>
+  );
+};
+
+
+/* eslint-disable react/prop-types */
+// import Chart from "chart.js/auto";
+// import { useAccounts } from "../contexts/accountsContext";
+import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+
+import { useFinal } from "../contexts/finalContext";
+// import { useCalls } from "../contexts/callsContext";
+// import { useState } from "react";
+function ChartBox() {
+  const { callTypes } = useFinal();
+  const { setSelectedTypeCalls } = useFinal();
+  console.log(callTypes);
+
+  const data = [
+    {
+      name: "face to face",
+      value: callTypes.face.length,
+      data: callTypes.face,
+    },
+    {
+      name: "Phone",
+      value: callTypes.phone.length,
+      data: callTypes.phone,
+    },
+    {
+      name: "Email",
+      value: callTypes.email.length,
+      data: callTypes.email,
+    },
+    {
+      name: "InPerson",
+      value: callTypes.inPerson.length,
+      data: callTypes.inPerson,
+    },
+    {
+      name: "Others",
+      value: callTypes.other.length,
+      data: callTypes.other,
+    },
+  ];
+
+  return (
+    <>
+      <div className="grow bg-blue-100 flex-1 border-b-gray-400 rounded-lg shadow-md ">
+        <ResponsiveContainer
+          minWidth={"100%"}
+          minHeight={"100%"}
+          width="100%"
+          height="100%"
+          className="grow bg-blue-100 flex-1 border-b-gray-400 rounded-lg shadow-md"
+        >
+          <PieChart>
+            <Pie
+              data={data}
+              cx="50%"
+              cy="50%"
+              labelLine={false}
+              label={renderCustomizedLabel}
+              outerRadius={180}
+              fill="#8884d8"
+              dataKey="value"
+            >
+              {data.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                  onClick={() => setSelectedTypeCalls(data[index])}
+                />
+              ))}
+            </Pie>
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+    </>
+  );
+}
+
+export default ChartBox;
+
+// import React, { PureComponent } from "react";
+
+const COLORS = ["#3196e7", "#8dc5f2", "#badcf7", "#187dce", "#5fadec"];
+
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({
+  cx,
+  cy,
+  midAngle,
+  innerRadius,
+  outerRadius,
+  percent,
+}) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+  return (
+    <text
+      x={x}
+      y={y}
+      fill="white"
+      textAnchor={x > cx ? "start" : "end"}
+      dominantBaseline="central"
+      className=""
+    >
+      {`${(percent * 100).toFixed(0)}%`}
+    </text>
+  );
+};
+
+{
+  /* <div className="grow bg-blue-100 flex-1 border-b-gray-400 rounded-lg shadow-md">
+  Hii
+</div>; */
+}
